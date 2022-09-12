@@ -1,11 +1,6 @@
 import React from 'react';
-// import { ITask } from './Interfaces';
 import { useQuery } from '@tanstack/react-query';
-import Post from './post';
-
-// interface Props {
-//   tasks: ITask[];
-// }
+import Post from './Post';
 
 const PostList = () => {
   const fetchPosts = async () => {

@@ -33,17 +33,23 @@ const getPosts = () => posts;
 
 const addPost = postData => {
   const id = getPosts().length + 1;
+
+  const ownerId = getPosts().length + 1;
+  console.log(ownerId);
   const newPost = {
     ...postData,
     id,
+    ownerId,
   };
   posts.push(newPost);
   return newPost;
 };
 
 const getSinglePost = id => {
-  const singlePost = posts.map(post => post.id === id);
-  post = singlePost;
+  const singlePost = posts.find(post => post.id === id);
+  // console.log('get single post', singlePost);
+  // posts = singlePost;
+  // console.log(posts);
 };
 const updatePost = (updatedPost: { id: number }) => {
   const listPosts = posts.map(post =>
@@ -54,8 +60,6 @@ const updatePost = (updatedPost: { id: number }) => {
 
 const deletePost = (deletionId: number, userId: number) => {
   const taskToDelete = posts.find(post => post.id === deletionId);
-  console.log('task to delete', taskToDelete);
-  console.log('deletionId', deletionId);
   if (taskToDelete.ownerId === userId) {
     posts = posts.filter(post => post.id !== taskToDelete.id);
     return true;
