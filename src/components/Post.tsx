@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link } from 'react-router-dom';
 import { IPost } from '../utility/interface';
 import useDeletePost from '~/hooks/useDeletePost';
@@ -8,22 +8,25 @@ interface Props {
 }
 
 const Post = ({ post }: Props) => {
-  const user = { id: 1, name: 'Mark', surname: 'Small' };
+  const user = { id: 5, name: 'Mark', surname: 'Small' };
+  console.log(post);
   const { mutateAsync, isLoading } = useDeletePost();
-  // console.log('post from post component', post);
-  // console.log('USER: ', user);
 
   const removePost = async (): Promise<void> => {
     await mutateAsync({ postId: post.id, userId: user.id });
   };
   return (
     <li key={post.id}>
-      {/* <Link to={`singlePost/${post.id}`}>{post.title}</Link> } */}
-      <Link to="singlePost/">{post.title}</Link>
+      <Link to={`/post/${post.id}`}>{post.title}</Link>
+      {post.post}
       <button className="bg-red-400" onClick={removePost}>
         Delete
       </button>
-      <button className="mx-2 bg-yellow-500">Update Post</button>
+
+      <Link className="bg-yellow-500" to={`/updatePost/${post.id}`}>
+        Update Form
+      </Link>
+      <ul></ul>
     </li>
   );
 };

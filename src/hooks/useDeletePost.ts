@@ -6,7 +6,6 @@ import {
 } from '@tanstack/react-query';
 
 export default function useDeletePost() {
-  // const user = { id: 1, name: 'Mark', surname: 'Mark' };
   const queryClient = useQueryClient();
   return useMutation(
     ({ postId, userId }) =>
@@ -16,7 +15,9 @@ export default function useDeletePost() {
     {
       onError: error => {
         console.log('slavs error', error);
-        alert('This is bad request');
+        alert(
+          'Only the creator of this post has the right to delete and update it!',
+        );
       },
       onSuccess: () => queryClient.invalidateQueries(['posts']),
     },

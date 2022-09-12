@@ -1,11 +1,14 @@
 /* eslint-disable prettier/prettier */
 import React, { FC, ReactElement } from 'react';
 import { BrowserRouter as Router, Route, Routes, Link } from 'react-router-dom';
-import SinglePostPage from './components/singlePost';
-import AddPostForm from './components/createPostForm';
+import SinglePostPage from './components/SinglePost';
+import PostForm from './components/PostForm';
 import Header from '~/layout/header.component';
 import Footer from '~/layout/footer.component';
-import PostList from './components/postList';
+import PostList from './components/PostList';
+import CreatePost from './components/CreatePost';
+import UpdatePost from './components/UpdatePost';
+import Post from './components/Post';
 
 const App: FC = (): ReactElement => (
   <div className="flex min-h-screen flex-col">
@@ -16,16 +19,15 @@ const App: FC = (): ReactElement => (
           <Link to="/" className="mx-2 bg-blue-400">
             Home
           </Link>
-          <Link to="/addPost" className="bg-blue-400">
+          <Link to="/createPost" className="bg-blue-400">
             Create New Post
           </Link>
         </nav>
         <Routes>
           <Route element={<PostList />} path="/" />
-          <Route element={<SinglePostPage />} path={`singlePost/*`} />
-          <Route element={<AddPostForm />} path={'addPost/'} />
-          {/* <Route element={<UpdatePost />} path={'updatePost/:id'} /> */}
-          {/* <Route element={<PostList />} path={`updatePostPage/`} /> */}
+          <Route element={<SinglePostPage />} path="/post/:id" />
+          <Route element={<UpdatePost />} path={'updatePost/:id'} />
+          <Route element={<CreatePost />} path={'createPost/'} />
         </Routes>
       </Router>
     </main>

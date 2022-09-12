@@ -16,14 +16,20 @@ const getPostsHandler = rest.get(URL_PATH, (req, res, ctx) => {
 });
 
 const addPostHandler = rest.post(URL_PATH, (req, res, ctx) => {
-  const newPost = req.body;
-  addPost(newPost);
-  const tasks = getPosts();
-  return res(ctx.status(200), ctx.json(tasks));
+  const newPost = addPost(req.body);
+  console.log('new post', req.body);
+  console.log('add post handler', req.body);
+  // addPost(newPost);
+  console.log('new post created', newPost);
+  const posts = getPosts();
+  return res(ctx.status(200), ctx.json(posts));
 });
 const getSinglePostsHandler = rest.get(`${URL_PATH}:id`, (req, res, ctx) => {
-  const post = getSinglePost();
-  return res(ctx.status(200), ctx.json(post));
+  const post = getSinglePost(req.params.id);
+  post = getPosts();
+  console.log('post from single post hendler', post);
+  // console.log(post);
+  return res(ctx.status(200), ctx.json(getPosts()));
 });
 
 const updatePostHandler = rest.patch(`${URL_PATH}:id`, (req, res, ctx) => {
@@ -38,7 +44,7 @@ const deleteTaskHandler = rest.delete(`${URL_PATH}:id`, (req, res, ctx) => {
   const result = deletePost(+req.params.id, req.body.userId);
   return result
     ? res(ctx.status(200), ctx.json(getPosts()))
-    : res(ctx.status(400), ctx.json({ error: 'badk request' }));
+    : res(ctx.status(400), ctx.json({ error: 'bad request' }));
 });
 
 const handlers = [
