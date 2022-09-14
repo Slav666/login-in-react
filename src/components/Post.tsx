@@ -18,7 +18,7 @@ const Post = ({ post }: Props) => {
   return (
     <li key={post.id}>
       <Link to={`/post/${post.id}`}>{post.title}</Link>
-      {post.post}
+      <p>{post.post}</p>
       <button className="bg-red-400" onClick={removePost}>
         Delete
       </button>

@@ -25,15 +25,28 @@ const addPostHandler = rest.post(URL_PATH, (req, res, ctx) => {
   return res(ctx.status(200), ctx.json(posts));
 });
 const getSinglePostsHandler = rest.get(`${URL_PATH}:id`, (req, res, ctx) => {
-  const post = getSinglePost(req.params.id);
-  post = getPosts();
-  console.log('post from single post hendler', post);
+  const post = +req.params.id;
+  // console.log('req.params.', req.body);
+  // const singlePost =
+  // post = getPosts();
+  // console.log('post from single post hendler', post);
   // console.log(post);
-  return res(ctx.status(200), ctx.json(getPosts()));
+  console.log('post id from handler', +req.params.id);
+  return res(ctx.status(200), ctx.json(getSinglePost(post)));
 });
 
+// const updatePostHandler = rest.patch(`${URL_PATH}:id`, (req, res, ctx) => {
+//   const result = updatePost(+req.params.id, req.body.userId);
+//   return result
+//     ? res(ctx.status(200), ctx.json(getPosts()))
+//     : res(ctx.status(400), ctx.json({ error: 'bad request' }));
+// });
+
 const updatePostHandler = rest.patch(`${URL_PATH}:id`, (req, res, ctx) => {
+  console.log('REQUEST BODY: ', req.body);
   const newPost = req.body;
+  console.log('user id update handler', req.body.userId);
+  console.log('post id update handler', req.params.id);
   updatePost(newPost);
   return res(ctx.status(200), ctx.json(getPosts()));
 });

@@ -46,15 +46,24 @@ const addPost = postData => {
 };
 
 const getSinglePost = id => {
-  const singlePost = posts.find(post => post.id === id);
-  // console.log('get single post', singlePost);
-  // posts = singlePost;
-  // console.log(posts);
+  console.log('get single post id', id);
+  posts.find(post => post.id === id);
 };
-const updatePost = (updatedPost: { id: number }) => {
+// const updatePost = (updatePostId, userId) => {
+//   const postToUpdate = posts.find(post => post.id === updatePostId);
+//   if (postToUpdate.ownerId === userId) {
+//     posts = posts.filter(post => post.id !== postToUpdate.id);
+//     return true;
+//   } else {
+//     return false;
+//   }
+// };
+const updatePost = (updatedPost: { id: number }, userId: number) => {
+  console.log('user id from updatePost fixture', userId);
   const listPosts = posts.map(post =>
     post.id === updatedPost.id ? updatedPost : post,
   );
+  console.log('updated post from fixture', updatedPost);
   posts = listPosts;
 };
 

@@ -1,22 +1,15 @@
 import React from 'react';
-import Post from './Post';
 import { useQuery } from '@tanstack/react-query';
 import { useParams } from 'react-router-dom';
+import usePost from '~/hooks/usePost';
 
 const SinglePostPage = () => {
-  const fetchPosts = async () => {
-    const response = await fetch(`/api/posts/`);
-    const data = await response.json();
-    return data;
-  };
+  const { postId } = useParams();
+  const { data: post, status } = usePost(+postId);
 
-  const { data, status } = useQuery(['posts'], fetchPosts);
-
-  const { id } = useParams();
-  const post = data.find(post => post.id.toString() === id);
   return (
     <div>
-      Single Post page: <h4>{post.title}</h4> <p>{post.post}</p>
+      Single Post page: <h4>{}</h4> <p>{}</p>
     </div>
   );
 };
