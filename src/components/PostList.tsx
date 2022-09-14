@@ -1,15 +1,11 @@
 import React from 'react';
 import { useQuery } from '@tanstack/react-query';
 import Post from './Post';
+import usePosts from '~/hooks/usePosts';
+import usePost from '~/hooks/usePost';
 
 const PostList = () => {
-  const fetchPosts = async () => {
-    const response = await fetch(`/api/posts/`);
-    const data = await response.json();
-    return data;
-  };
-
-  const { data, status } = useQuery(['posts'], fetchPosts);
+  const { data, status } = usePosts();
 
   if (status === 'loading') {
     return <div>Loading...</div>;
@@ -22,7 +18,12 @@ const PostList = () => {
     <>
       <ul className=" py-2">
         {data.map(post => (
-          <Post key={post.id} post={post} />
+          <Post
+            key={post.id}
+            post={post}
+            // onClick={() => setActivePostId(post.id)}
+            // activePostId={activePostId}
+          />
         ))}
       </ul>
     </>
