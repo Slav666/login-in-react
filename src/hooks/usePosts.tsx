@@ -3,6 +3,9 @@ import axios from 'axios';
 
 export default function usePosts() {
   return useQuery(['posts'], () =>
-    axios.get('/api/posts/').then(res => res.data),
+    axios.get('/api/posts/').then(res => {
+      console.log('RES DATA FROM USE POST', res.data);
+      return res.data;
+    }),
   );
 }

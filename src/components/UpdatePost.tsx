@@ -15,17 +15,11 @@ const UpdatedPost = () => {
   };
 
   const { data, status } = useQuery(['posts'], fetchPosts);
-  // console.log('data from update', data);
   const post = data.find(post => post.id == id);
-  // console.log(post);
   const { mutateAsync } = useUpdatePost();
 
   const onFormSubmit = async formData => {
-    console.log('form data', formData);
     await mutateAsync({ post: { ...formData }, userId: user.id });
-    console.log('data from form', formData);
-    console.log('post from form ', post);
-    console.log('user id: ', user.id);
     navigate('/');
   };
   return (

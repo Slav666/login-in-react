@@ -1,9 +1,5 @@
-import axios, { AxiosRequestConfig } from 'axios';
-import {
-  parseMutationArgs,
-  useMutation,
-  useQueryClient,
-} from '@tanstack/react-query';
+import axios from 'axios';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 export default function useDeletePost() {
   const queryClient = useQueryClient();

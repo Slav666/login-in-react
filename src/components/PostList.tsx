@@ -1,8 +1,6 @@
 import React from 'react';
-import { useQuery } from '@tanstack/react-query';
 import Post from './Post';
 import usePosts from '~/hooks/usePosts';
-import usePost from '~/hooks/usePost';
 
 const PostList = () => {
   const { data, status } = usePosts();
@@ -16,14 +14,9 @@ const PostList = () => {
   }
   return (
     <>
-      <ul className=" py-2">
+      <ul className="m-2 py-2">
         {data.map(post => (
-          <Post
-            key={post.id}
-            post={post}
-            // onClick={() => setActivePostId(post.id)}
-            // activePostId={activePostId}
-          />
+          <Post key={post.id} post={post} />
         ))}
       </ul>
     </>
