@@ -16,16 +16,27 @@ const Post = ({ post }: Props) => {
     await mutateAsync({ postId: post.id, userId: user.id });
   };
   return (
-    <li key={post.id}>
-      <Link to={`/post/${post.id}`}>{post.title}</Link>
+    <li
+      key={post.id}
+      className="m-2 flex cursor-pointer flex-col justify-between rounded border-2 border-gray-900 bg-gray-500 p-2"
+    >
+      <Link to={`/posts/${post.id}`}>{post.title}</Link>
       <p>{post.post}</p>
-      <button className="bg-red-400" onClick={removePost}>
-        Delete
-      </button>
+      <div className="flex justify-center">
+        <button
+          className="m-2 rounded-md bg-red-500 p-2 hover:bg-red-800"
+          onClick={removePost}
+        >
+          Delete
+        </button>
 
-      <Link className="bg-yellow-500" to={`/updatePost/${post.id}`}>
-        Update Form
-      </Link>
+        <Link
+          className="m-2 rounded-md bg-blue-500 p-2 hover:bg-blue-700"
+          to={`/updatePost/${post.id}`}
+        >
+          Update Form
+        </Link>
+      </div>
       <ul></ul>
     </li>
   );

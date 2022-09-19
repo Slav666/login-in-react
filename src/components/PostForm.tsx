@@ -6,41 +6,40 @@ const PostForm = ({ defaultValues, onFormSubmit }) => {
 
   const onSubmit = handleSubmit(data => {
     onFormSubmit(data);
-    console.log('on submit data', data);
   });
   return (
-    <form onSubmit={onSubmit}>
+    <form className="flex flex-col p-10" onSubmit={onSubmit}>
       <label className="mx-2" htmlFor="title">
-        Post title
+        Post Title:
       </label>
       <input
         {...register('title', { required: true })}
         autoFocus
-        className="bg-black"
+        className="m-3 border-2 border-gray-500 bg-gray-500"
         id="title"
         name="title"
-        placeholder="Post title"
         type="text"
       />
-      <label className="mx-2" htmlFor="post">
-        Post content
+      <label className="m-3" htmlFor="post">
+        Post Content:
       </label>
-      <input
+      <textarea
         {...register('post', { required: true })}
-        autoFocus
-        className="bg-black"
+        className="border-2 border-gray-500 bg-gray-500"
+        cols={50}
         id="post"
         name="post"
-        placeholder="Post"
-        type="text"
+        rows={8}
       />
-      <button
-        aria-label="Add Item"
-        className="mx-4 rounded bg-sky-500 py-2 px-4 hover:bg-cyan-600"
-        type="submit"
-      >
-        Save Post
-      </button>
+      <div className="flex justify-center p-2">
+        <button
+          aria-label="Add Item"
+          className="m-2 rounded-md bg-sky-500 p-2 hover:bg-sky-800"
+          type="submit"
+        >
+          Save Post
+        </button>
+      </div>
     </form>
   );
 };
