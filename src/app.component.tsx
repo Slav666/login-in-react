@@ -29,16 +29,10 @@ const App: FC = (): ReactElement => {
             </Link>
           </nav>
           <Routes>
-            <Route
-              element={
-                <PostList
-                />
-              }
-              path="/"
-            />
+            <Route element={<PostList />} path="/" />
             <Route element={<SinglePostPage />} path="/posts/:id" />
-            <Route element={<UpdatePost />} path={'updatePost/:id'} />
-            <Route element={<CreatePost />} path={'createPost/'} />
+            <Route element={<UpdatePost />} path="updatePost/:id" />
+            <Route element={<CreatePost />} path="createPost/" />
           </Routes>
         </Router>
       </main>
