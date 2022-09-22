@@ -2,24 +2,21 @@ import React from 'react';
 import PostForm from './PostForm';
 import { useParams, useNavigate } from 'react-router-dom';
 import useUpdatePost from '~/hooks/useUpdatePost';
-import { useQuery } from '@tanstack/react-query';
+import { useQuery, useMutation } from '@tanstack/react-query';
+import usePost from '~/hooks/usePost';
+import usePosts from '~/hooks/usePosts';
 
 const UpdatedPost = () => {
-  const user = { id: 1, name: 'Mark', surname: 'Small' };
+  const user = { id: 6, name: 'Mark', surname: 'Small' };
   const { id } = useParams();
   const navigate = useNavigate();
-  const fetchPosts = async () => {
-    const response = await fetch(`/api/posts/`);
-    const data = await response.json();
-    return data;
-  };
-
-  const { data, status } = useQuery(['posts'], fetchPosts);
-  const post = data.find(post => post.id == id);
+  const { data: post } = usePost(id);
+  // console.log('DATA', post);
   const { mutateAsync } = useUpdatePost();
 
   const onFormSubmit = async formData => {
-    await mutateAsync({ post: { ...formData }, userId: user.id });
+    // console.log('FORM DATA!!!!!!!!!!', post);
+    await mutateAsync({ ...formData });
     navigate('/');
   };
   return (

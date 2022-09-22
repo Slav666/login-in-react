@@ -4,18 +4,12 @@ import { useMutation, useQueryClient } from '@tanstack/react-query';
 export default function useUpdatePost() {
   const queryClient = useQueryClient();
   return useMutation(
-    ({ post, userId }) =>
-      axios
-        .patch(
-          `/api/posts/${post.id}`,
-          { post, userId },
-          {
-            headers: {},
-          },
-        )
-        .then(res => {
-          res.data;
-        }),
+    post => {
+      console.log('post id from use update post ', post.id);
+      return axios.patch(`/api/posts/${post?.id}`, post).then(res => {
+        res.data;
+      });
+    },
     {
       onError: error => {
         console.log('Error from useUpdatePost hook', error);
@@ -23,9 +17,9 @@ export default function useUpdatePost() {
           'Only the creator of this post has the right to delete and update it!',
         );
       },
-      onSuccess: async id => {
+      onSuccess: async post => {
         queryClient.invalidateQueries(['posts']);
-        await queryClient.invalidateQueries(['post', id]);
+        await queryClient.invalidateQueries(['post', post?.id]);
       },
     },
   );
