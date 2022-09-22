@@ -9,7 +9,7 @@ interface Props {
 
 const Post = ({ post }: Props) => {
   const user = { id: 5, name: 'Mark', surname: 'Small' };
-  console.log(post);
+  // console.log(post);
   const { mutateAsync, isLoading } = useDeletePost();
 
   const removePost = async (): Promise<void> => {
@@ -34,7 +34,7 @@ const Post = ({ post }: Props) => {
           className="m-2 rounded-md bg-blue-500 p-2 hover:bg-blue-700"
           to={`/updatePost/${post.id}`}
         >
-          Update Form
+          Update Post
         </Link>
       </div>
       <ul></ul>

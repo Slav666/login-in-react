@@ -1,9 +1,9 @@
 import React from 'react';
 import PostForm from './PostForm';
-import useCreateTask from '~/hooks/useCreatePost';
+import useCreatePost from '~/hooks/useCreatePost';
 
 const CreatePost = () => {
-  const { mutateAsync, isLoading } = useCreateTask();
+  const { mutateAsync, isLoading } = useCreatePost();
 
   const onFormSubmit = async data => {
     await mutateAsync({ ...data });

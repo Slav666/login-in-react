@@ -8,7 +8,7 @@ const SinglePostPage = () => {
   const { data: post, status } = usePost(id);
   return (
     <div>
-      Single Post page: <h4>{post?.post}</h4>
+      Single Post page: <h4>{post?.title}</h4>
     </div>
   );
 };

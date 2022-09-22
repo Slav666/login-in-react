@@ -26,7 +26,8 @@ const getSinglePostsHandler = rest.get(`${URL_PATH}:id`, (req, res, ctx) => {
 });
 
 const updatePostHandler = rest.patch(`${URL_PATH}:id`, (req, res, ctx) => {
-  const newPost = req.body;
+  const newPost = req?.body;
+  console.log('REQUEST BODy', req.body);
   updatePost(newPost);
   return res(ctx.status(200), ctx.json(getPosts()));
 });

@@ -1,3 +1,5 @@
+import SinglePostPage from '~/components/SinglePost';
+
 let posts = [
   {
     id: 1,
@@ -50,10 +52,14 @@ const getSinglePost = (id: number) => {
   return post;
 };
 
-const updatePost = (updatedPost: { id: number }, userId: number) => {
+const updatePost = updatedPost => {
+  console.log('updated post pppppppppppp', updatedPost);
+  console.log('update post id????????????', updatedPost.id);
   const listPosts = posts.map(post =>
     post.id === updatedPost.id ? updatedPost : post,
   );
+  console.log('X', updatedPost.id);
+  console.log('list posts from update', listPosts);
   posts = listPosts;
 };
 
