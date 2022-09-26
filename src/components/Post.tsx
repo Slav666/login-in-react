@@ -18,7 +18,7 @@ const Post = ({ post }: Props) => {
   return (
     <li
       key={post.id}
-      className="m-2 flex cursor-pointer flex-col justify-between rounded border-2 border-gray-900 bg-gray-500 p-2"
+      className="m-2 flex max-w-4xl cursor-pointer flex-col rounded border-2 border-gray-900 bg-gray-500 p-2"
     >
       <Link to={`/posts/${post.id}`}>{post.title}</Link>
       <p>{post.post}</p>

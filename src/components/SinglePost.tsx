@@ -9,6 +9,7 @@ const SinglePostPage = () => {
   return (
     <div>
       Single Post page: <h4>{post?.title}</h4>
+      <h2>{post?.post}</h2>
     </div>
   );
 };

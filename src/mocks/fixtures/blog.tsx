@@ -49,17 +49,18 @@ const addPost = postData => {
 const getSinglePost = (id: number) => {
   console.log('get single post id', id);
   const post = posts.find(post => post.id === id);
+  console.log('SINGLE POST99999999999', post);
   return post;
 };
 
-const updatePost = updatedPost => {
+const updatePost = (updatedPost: { id: number }) => {
   console.log('updated post pppppppppppp', updatedPost);
   console.log('update post id????????????', updatedPost.id);
   const listPosts = posts.map(post =>
     post.id === updatedPost.id ? updatedPost : post,
   );
   console.log('X', updatedPost.id);
-  console.log('list posts from update', listPosts);
+  console.log('POSTS FROM UPDATE', listPosts);
   posts = listPosts;
 };
 
