@@ -14,7 +14,7 @@ const PostList = () => {
   }
   return (
     <>
-      <ul className="m-2 py-2">
+      <ul className="m-2 py-2 md:container md:mx-auto">
         {data.map(post => (
           <Post key={post.id} post={post} />
         ))}

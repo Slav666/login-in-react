@@ -7,15 +7,14 @@ import usePost from '~/hooks/usePost';
 import usePosts from '~/hooks/usePosts';
 
 const UpdatedPost = () => {
-  const user = { id: 6, name: 'Mark', surname: 'Small' };
   const { id } = useParams();
   const navigate = useNavigate();
-  const { data: post } = usePost(id);
+  const { data: post } = usePost(+id);
   // console.log('DATA', post);
   const { mutateAsync } = useUpdatePost();
 
   const onFormSubmit = async formData => {
-    // console.log('FORM DATA!!!!!!!!!!', post);
+    console.log('FORM DATA!!!!!!!!!!', post);
     await mutateAsync({ ...formData });
     navigate('/');
   };

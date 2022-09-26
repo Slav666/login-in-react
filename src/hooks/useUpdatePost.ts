@@ -6,7 +6,8 @@ export default function useUpdatePost() {
   return useMutation(
     post => {
       console.log('post id from use update post ', post.id);
-      return axios.patch(`/api/posts/${post?.id}`, post).then(res => {
+      // console.log('USER ID 111122222', userId);
+      return axios.patch(`/api/posts/${post.id}`, post).then(res => {
         res.data;
       });
     },

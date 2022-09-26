@@ -4,43 +4,34 @@ import { useForm } from 'react-hook-form';
 
 const PostForm = ({ defaultValues, onFormSubmit }) => {
   console.log('default values 666', defaultValues);
-  // const formHandler = useForm({ defaultValues });
-  // console.log('FORM HANDLER: ', formHandler);
-  // console.log('FORM VSLUES: ', formHandler.getValues());
-  // const { register, handleSubmit } = formHandler;
-  const { register, handleSubmit } = useForm({ defaultValues });
+  const formHandler = useForm({ defaultValues });
+  console.log('FORM HANDLER: ', formHandler);
+  console.log('FORM VALUES: ', formHandler.getValues());
+  const { register, handleSubmit, reset } = formHandler;
+  // const { register, handleSubmit } = useForm({ defaultValues });
   // console.log('register props from form', register);
 
   const onSubmit = handleSubmit(data => {
-    console.log('data from submit form5', data);
+    console.log('data from submit form555555555555', data);
     onFormSubmit(data);
   });
 
+  useEffect(() => {
+    reset({ ...defaultValues });
+  }, [reset, defaultValues]);
   return (
-    <form className="flex flex-col p-10" onSubmit={onSubmit}>
-      {/* <label className="mx-2" htmlFor="title">
-        Post Title:
-      </label>
-      <input
-        {...register('title', { required: true })}
-        defaultValue={defaultValues?.title}
-        // autoFocus
-        className="m-3 border-2 border-gray-500 bg-gray-500"
-        type="text"
-        name="title"
-        id="title"
-        // onChange={e => setValue('title', e.target.value)}
-      /> */}
+    <form
+      className="m-4 flex flex-col md:container md:mx-auto"
+      onSubmit={onSubmit}
+    >
       <label className="mx-2" htmlFor="title">
         Post Title:
       </label>
       <input
-        {...register('title', {
-          required: true,
-        })}
-        defaultValue={defaultValues?.title}
+        {...register('title')}
         autoFocus
-        className="m-3 border-2 border-gray-500 bg-gray-500"
+        className="m-3 border-2 border-gray-500 bg-pink-500 p-2"
+        defaultValue={defaultValues?.title}
         id="title"
         name="title"
         type="text"
@@ -49,10 +40,10 @@ const PostForm = ({ defaultValues, onFormSubmit }) => {
         Post Content:
       </label>
       <textarea
-        {...register('post', { required: true })}
-        defaultValue={defaultValues?.post}
-        className="border-2 border-gray-500 bg-gray-500"
+        {...register('post')}
+        className="border-2 border-gray-500 bg-gray-500 p-8"
         cols={50}
+        defaultValue={defaultValues?.post}
         id="post"
         name="post"
         rows={8}
