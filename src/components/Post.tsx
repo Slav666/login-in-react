@@ -8,13 +8,20 @@ interface Props {
 }
 
 const Post = ({ post }: Props) => {
-  const user = { id: 5, name: 'Mark', surname: 'Small' };
-  // console.log(post);
-  const { mutateAsync, isLoading } = useDeletePost();
+  const user = { id: 1, name: 'Mark', surname: 'Small' };
+  const { mutateAsync, status, isLoading } = useDeletePost();
 
   const removePost = async (): Promise<void> => {
     await mutateAsync({ postId: post.id, userId: user.id });
   };
+
+  if (status === 'loading') {
+    return <div>Loading...</div>;
+  }
+
+  if (status === 'error') {
+    return <div>Error</div>;
+  }
   return (
     <li
       key={post.id}

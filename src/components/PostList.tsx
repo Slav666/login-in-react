@@ -1,6 +1,7 @@
 import React from 'react';
 import Post from './Post';
 import usePosts from '~/hooks/usePosts';
+import { IPost } from '../utility/interface';
 
 const PostList = () => {
   const { data, status } = usePosts();
@@ -15,7 +16,7 @@ const PostList = () => {
   return (
     <>
       <ul className="m-2 py-2 md:container md:mx-auto">
-        {data.map(post => (
+        {data.map((post: IPost) => (
           <Post key={post.id} post={post} />
         ))}
       </ul>

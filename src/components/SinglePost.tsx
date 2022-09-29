@@ -8,8 +8,8 @@ const SinglePostPage = () => {
   const { data: post, status } = usePost(id);
   return (
     <div>
-      Single Post page: <h4>{post?.title}</h4>
-      <h2>{post?.post}</h2>
+      Single Post page: <title className="">{post?.title}</title>
+      <div className="">{post?.post}</div>
     </div>
   );
 };
