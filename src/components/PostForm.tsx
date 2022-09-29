@@ -1,18 +1,15 @@
-import { post } from 'cypress/types/jquery';
-import React, { ChangeEvent, useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 
 const PostForm = ({ defaultValues, onFormSubmit }) => {
-  console.log('default values 666', defaultValues);
   const formHandler = useForm({ defaultValues });
-  console.log('FORM HANDLER: ', formHandler);
-  console.log('FORM VALUES: ', formHandler.getValues());
+  // console.log('FORM HANDLER: ', formHandler);
+  // console.log('FORM VALUES: ', formHandler.getValues());
   const { register, handleSubmit, reset } = formHandler;
   // const { register, handleSubmit } = useForm({ defaultValues });
   // console.log('register props from form', register);
 
   const onSubmit = handleSubmit(data => {
-    console.log('data from submit form555555555555', data);
     onFormSubmit(data);
   });
 

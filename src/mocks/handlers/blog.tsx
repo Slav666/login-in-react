@@ -26,17 +26,20 @@ const getSinglePostsHandler = rest.get(`${URL_PATH}:id`, (req, res, ctx) => {
 });
 
 const updatePostHandler = rest.patch(`${URL_PATH}:id`, (req, res, ctx) => {
-  const newPost = req.body;
-  console.log('REQUEST BODy', req.body);
-  // updatePost(newPost);
-  return res(ctx.status(200), ctx.json(updatePost(newPost)));
+  const result = updatePost(req.body);
+  console.log('REQ BODY', req.body);
+  console.log('Req PARAMS ID', req.params.id);
+  console.log('Result', result);
+  return result
+    ? res(ctx.status(200), ctx.json(getPosts()))
+    : res(ctx.status(400), ctx.json({ error: 'Bad request' }));
 });
 
 const deleteTaskHandler = rest.delete(`${URL_PATH}:id`, (req, res, ctx) => {
   const result = deletePost(+req.params.id, req.body.userId);
   return result
     ? res(ctx.status(200), ctx.json(getPosts()))
-    : res(ctx.status(400), ctx.json({ error: 'bad request' }));
+    : res(ctx.status(400), ctx.json({ error: 'Bad request' }));
 });
 
 const handlers = [

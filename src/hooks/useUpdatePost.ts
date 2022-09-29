@@ -1,13 +1,17 @@
 import axios from 'axios';
 import { useMutation, useQueryClient } from '@tanstack/react-query';
 
-export default function useUpdatePost() {
+export default function useUpdatePost({ userId }) {
   const queryClient = useQueryClient();
   return useMutation(
     post => {
-      console.log('post id from use update post ', post.id);
-      // console.log('USER ID 111122222', userId);
-      return axios.patch(`/api/posts/${post.id}`, post).then(res => {
+      console.log('Post from uSe update post', post);
+      console.log('USER ID FROM update hook', userId);
+      // const returnedTarget = Object.assign(post, userId);
+      const body = { ...post, userId };
+      console.log('BODY FROM USE UPDATE POST!!!!!!', body);
+      return axios.patch(`/api/posts/${post.id}`, body).then(res => {
+        // console.log('Two objects merged', returnedTarget);
         res.data;
       });
     },
