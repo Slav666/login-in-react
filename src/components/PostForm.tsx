@@ -1,16 +1,21 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, FC } from 'react';
 import { useForm } from 'react-hook-form';
+import { IPost } from '../utility/interface';
 
-const PostForm = ({ defaultValues, onFormSubmit }) => {
-  const formHandler = useForm({ defaultValues });
-  // console.log('FORM HANDLER: ', formHandler);
-  // console.log('FORM VALUES: ', formHandler.getValues());
-  const { register, handleSubmit, reset } = formHandler;
-  // const { register, handleSubmit } = useForm({ defaultValues });
-  // console.log('register props from form', register);
+interface FormInput {
+  title: string;
+  post: string;
+  defaultValues: IPost;
+}
 
-  const onSubmit = handleSubmit(data => {
-    onFormSubmit(data);
+const PostForm: FC = ({ defaultValues, onFormSubmit }: FormInput) => {
+  const { register, handleSubmit, reset } = useForm<FormInput>({
+    defaultValues,
+  });
+
+  console.log('Default Value', defaultValues);
+  const onSubmit = handleSubmit((data): FormInput => {
+    return onFormSubmit(data);
   });
 
   useEffect(() => {
@@ -45,6 +50,7 @@ const PostForm = ({ defaultValues, onFormSubmit }) => {
         name="post"
         rows={8}
       />
+
       <div className="flex justify-center p-2">
         <button
           aria-label="Add Item"

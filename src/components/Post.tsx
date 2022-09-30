@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC } from 'react';
 import { Link } from 'react-router-dom';
 import { IPost } from '../utility/interface';
 import useDeletePost from '~/hooks/useDeletePost';
@@ -7,8 +7,8 @@ interface Props {
   post: IPost;
 }
 
-const Post = ({ post }: Props) => {
-  const user = { id: 1, name: 'Mark', surname: 'Small' };
+const Post: FC = ({ post }: Props) => {
+  const user = { id: 5, name: 'Mark', surname: 'Small' };
   const { mutateAsync, status, isLoading } = useDeletePost();
 
   const removePost = async (): Promise<void> => {
@@ -19,9 +19,9 @@ const Post = ({ post }: Props) => {
     return <div>Loading...</div>;
   }
 
-  if (status === 'error') {
-    return <div>Error</div>;
-  }
+  // if (status === 'error') {
+  //   return <div>Error</div>;
+  // }
   return (
     <li
       key={post.id}
