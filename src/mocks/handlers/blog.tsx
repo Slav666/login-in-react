@@ -1,4 +1,5 @@
 import { rest } from 'msw';
+import { IUser } from '../../utility/interface';
 
 import {
   getPosts,
@@ -27,9 +28,6 @@ const getSinglePostsHandler = rest.get(`${URL_PATH}:id`, (req, res, ctx) => {
 
 const updatePostHandler = rest.patch(`${URL_PATH}:id`, (req, res, ctx) => {
   const result = updatePost(req.body);
-  console.log('REQ BODY', req.body);
-  console.log('Req PARAMS ID', req.params.id);
-  console.log('Result', result);
   return result
     ? res(ctx.status(200), ctx.json(getPosts()))
     : res(ctx.status(400), ctx.json({ error: 'Bad request' }));
