@@ -5,10 +5,18 @@ import useDeletePost from '~/hooks/useDeletePost';
 
 interface Props {
   post: IPost;
+  postId: number;
 }
-
+interface User {
+  id: number;
+  name: string;
+  surname: string;
+}
+// interface RemoveProps {
+//   mutateAsync: (postId: number, userId: number) => void;
+// }
 const Post: FC = ({ post }: Props) => {
-  const user = { id: 5, name: 'Mark', surname: 'Small' };
+  const user = { id: 2, name: 'Mark', surname: 'Small' };
   const { mutateAsync, status, isLoading } = useDeletePost();
 
   const removePost = async (): Promise<void> => {

@@ -1,9 +1,9 @@
-import React from 'react';
+import React, { FC } from 'react';
 import Post from './Post';
 import usePosts from '~/hooks/usePosts';
 import { IPost } from '../utility/interface';
 
-const PostList = () => {
+const PostList: FC = () => {
   const { data, status } = usePosts();
 
   if (status === 'loading') {

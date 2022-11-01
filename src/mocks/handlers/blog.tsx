@@ -1,4 +1,4 @@
-import { rest } from 'msw';
+import { RequestHandler, rest } from 'msw';
 import { IUser } from '../../utility/interface';
 
 import {
@@ -11,7 +11,7 @@ import {
 
 const URL_PATH = '/api/posts/';
 
-const getPostsHandler = rest.get(URL_PATH, (req, res, ctx) => {
+const getPostsHandler: RequestHandler = rest.get(URL_PATH, (req, res, ctx) => {
   const posts = getPosts();
   return res(ctx.status(200), ctx.json(posts));
 });
