@@ -1,21 +1,31 @@
 import React, { FC } from 'react';
 import { Link } from 'react-router-dom';
-import { IPost } from '../utility/interface';
+import { BlogData } from '../utility/interface';
 import useDeletePost from '~/hooks/useDeletePost';
+import { z } from 'zod';
 
-interface Props {
-  post: IPost;
-  postId: number;
-}
-interface User {
-  id: number;
-  name: string;
-  surname: string;
-}
-// interface RemoveProps {
-//   mutateAsync: (postId: number, userId: number) => void;
+// interface Props {
+//   post: IPost;
+//   postId: number;
 // }
-const Post: FC = ({ post }: Props) => {
+// export const Props = z.object({
+//   post: BlogData,
+//   postId: z.number(),
+// });
+
+// interface User {
+//   id: number;
+//   name: string;
+//   surname: string;
+// }
+export const User = z.object({
+  id: z.number(),
+  name: z.string(),
+  age: z.number(),
+});
+
+export type Blog = z.infer<typeof BlogData>;
+const Post: FC = ({ post }: Blog) => {
   const user = { id: 2, name: 'Mark', surname: 'Small' };
   const { mutateAsync, status, isLoading } = useDeletePost();
 

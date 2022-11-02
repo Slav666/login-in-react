@@ -1,21 +1,35 @@
 import * as React from 'react';
 
 import { render, screen, waitFor } from '@testing-library/react';
-
+import { renderHook } from '@testing-library/react-hooks';
+import usePost from '~/hooks/usePost';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import Post from './Post';
+import { describe, it, expect } from 'vitest';
 import PostList from './PostList';
-// import { selectBookmark } from './bookmarks.slice';
+import { logRoles } from '@testing-library/dom';
 
 describe('<PostList />', () => {
-  it.only('shows the list of posts', async () => {
-    render(<PostList />, {
-      // state: {
-      //   accounts: { userKey: '' },
-      //   bookmarks: { bookmarks: [] },
-      // },
-    });
+  const query = new QueryClient();
+  it('shows the list of posts', async () => {
+    const { container } = render(
+      <QueryClientProvider client={query}>
+        <PostList />
+      </QueryClientProvider>,
+    );
+    logRoles(container);
 
-    await screen.findByRole('link', {
-      name: 'When is the best weather in Scotland',
-    });
+    const result = await screen.findAllByRole('link');
+    console.log('Result', result);
+    expect(result).toHaveLength(4);
+
+    const allTitles = result.map(element => element.title);
+    console.log('all titles', allTitles);
+    expect(allTitles).toEqual([
+      'When is the best weather is Scotland?',
+      'Why I like Scotland?',
+      'What is the best feature for my sons?',
+      'What is the best time to buy a house?',
+    ]);
   });
 });

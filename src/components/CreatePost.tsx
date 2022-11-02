@@ -1,13 +1,10 @@
 import React from 'react';
 import PostForm from './PostForm';
 import useCreatePost from '~/hooks/useCreatePost';
-import { IPost } from '../utility/interface';
+import { BlogData } from '../utility/interface';
+import { z } from 'zod';
 
-const addTwoNumbers = (number1, number2) => {
-  return number1 + number2;
-};
-
-
+export type FormInput = z.infer<typeof BlogData>;
 const CreatePost = () => {
   const { mutateAsync, status, isLoading } = useCreatePost();
 
