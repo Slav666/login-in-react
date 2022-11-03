@@ -1,29 +1,19 @@
 import React, { useEffect, FC } from 'react';
 import { useForm } from 'react-hook-form';
-import { BlogData } from '../utility/interface';
 import { z } from 'zod';
-
-// interface FormInput {
-//   title: string;
-//   post: string;
-//   defaultValues: IPost;
-// }
-export const IPost = z.object({
-  id: z.number(),
-  ownerId: z.number(),
-  creationDate: z.string(),
-  title: z.string(),
-  post: z.string(),
-});
+import { BlogData } from '~/utility/interface';
 
 export const FormInput = z.object({
+  id: z.number(),
+  ownerId: z.number(),
   title: z.string(),
   post: z.string(),
-  onFormSubmit: BlogData,
-  defaultValues: BlogData,
+  // onFormSubmit: BlogData,
+  // defaultValues: BlogData,
 });
 
 export type Form = z.infer<typeof FormInput>;
+
 const PostForm: FC = ({ defaultValues, onFormSubmit }: Form) => {
   const { register, handleSubmit, reset } = useForm<Form>({
     defaultValues,

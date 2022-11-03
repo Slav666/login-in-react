@@ -1,10 +1,7 @@
 import React from 'react';
 import PostForm from './PostForm';
 import useCreatePost from '~/hooks/useCreatePost';
-import { BlogData } from '../utility/interface';
-import { z } from 'zod';
 
-export type FormInput = z.infer<typeof BlogData>;
 const CreatePost = () => {
   const { mutateAsync, status, isLoading } = useCreatePost();
 
