@@ -1,45 +1,29 @@
 import React, { FC } from 'react';
 import { Link } from 'react-router-dom';
-import { BlogData } from '../utility/interface';
+import { IPost, IUser } from '../utility/interface';
 import useDeletePost from '~/hooks/useDeletePost';
 import { z } from 'zod';
 
-// interface Props {
-//   post: IPost;
-//   postId: number;
-// }
-// export const Props = z.object({
-//   post: BlogData,
-//   postId: z.number(),
-// });
+interface Props {
+  post: IPost;
+  postId: number;
+}
 
-// interface User {
-//   id: number;
-//   name: string;
-//   surname: string;
-// }
-export const User = z.object({
-  id: z.number(),
-  name: z.string(),
-  age: z.number(),
-});
-
-export type Blog = z.infer<typeof BlogData>;
-const Post: FC = ({ post }: Blog) => {
-  const user = { id: 2, name: 'Mark', surname: 'Small' };
+const Post: FC = ({ post }: Props) => {
+  const user: IUser = { userId: 2, name: 'Mark', surname: 'Small' };
   const { mutateAsync, status, isLoading } = useDeletePost();
 
   const removePost = async (): Promise<void> => {
-    await mutateAsync({ postId: post.id, userId: user.id });
+    await mutateAsync({ postId: post.id, userId: user.userId });
   };
 
   if (status === 'loading') {
     return <div>Loading...</div>;
   }
 
-  // if (status === 'error') {
-  //   return <div>Error</div>;
-  // }
+  if (status === 'error') {
+    return <div>Error</div>;
+  }
   return (
     <li
       key={post.id}
