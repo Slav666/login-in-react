@@ -12,11 +12,11 @@ export const BlogData = z.object({
 });
 
 const Blogs = z.array(BlogData);
-// export type Blog = z.infer<typeof BlogData>;
+export type Blog = z.infer<typeof BlogData>;
 
 export default function usePosts() {
   return useQuery(['posts'], () =>
-    axios.get('/api/posts/').then(res => {
+    axios.get<any>('/api/posts/').then(res => {
       // console.log('RES DATA FROM USE POST', res.data);
       //Source: www.sandromaglione.com/techblog/zod-and-newtype-ts-full-type-safety-with-typescript
       const dataToValidate = Blogs.safeParse(res.data);
