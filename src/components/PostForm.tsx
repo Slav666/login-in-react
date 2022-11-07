@@ -1,26 +1,30 @@
 import React, { useEffect, FC } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
-import { BlogData } from '~/utility/interface';
+import { zodResolver } from '@hookform/resolvers/zod';
+// import { BlogData } from '~/utility/interface';
 
-export const FormInput = z.object({
-  id: z.number(),
-  ownerId: z.number(),
-  title: z.string(),
-  post: z.string(),
-  // onFormSubmit: BlogData,
-  // defaultValues: BlogData,
+export const FormSchema = z.object({
+  title: z.string().min(5),
+  post: z.string().min(20),
 });
 
-export type Form = z.infer<typeof FormInput>;
+export type FormSchemaType = z.infer<typeof FormSchema>;
 
-const PostForm: FC = ({ defaultValues, onFormSubmit }: Form) => {
-  const { register, handleSubmit, reset } = useForm<Form>({
+const PostForm: FC = ({ defaultValues, onFormSubmit }) => {
+  const {
+    register,
+    handleSubmit,
+    reset,
+    watch,
+    formState: { errors },
+  } = useForm<FormSchemaType>({
     defaultValues,
+    resolver: zodResolver(FormSchema),
   });
 
-  console.log('Default Value', defaultValues);
-  const onSubmit = handleSubmit((data): Form => {
+  const onSubmit = handleSubmit(data => {
+    console.log(data);
     return onFormSubmit(data);
   });
 
@@ -44,6 +48,11 @@ const PostForm: FC = ({ defaultValues, onFormSubmit }: Form) => {
         name="title"
         type="text"
       />
+
+      {errors.title && (
+        <p className="m1 text-sm text-red-600">{errors.title.message[0]}</p>
+      )}
+
       <label className="m-3" htmlFor="post">
         Post Content:
       </label>
@@ -56,8 +65,11 @@ const PostForm: FC = ({ defaultValues, onFormSubmit }: Form) => {
         name="post"
         rows={8}
       />
-
+      {errors.post && (
+        <p className="m1 text-sm text-red-600">{errors.post.message}</p>
+      )}
       <div className="flex justify-center p-2">
+        {/* <pre>{JSON.stringify(watch(), null, 2)}</pre> */}
         <button
           aria-label="Add Item"
           className="m-2 rounded-md bg-sky-500 p-2 hover:bg-sky-800"
