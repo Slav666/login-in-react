@@ -5,8 +5,6 @@ export default function useDeletePost() {
   const queryClient = useQueryClient();
   return useMutation(
     ({ postId, userId }) => {
-      console.log('post id from use delete post', postId);
-      console.log('user id from use delete post', userId);
       return axios
         .delete(`/api/posts/${postId}`, { headers: {}, data: { userId } })
         .then(res => res.data);

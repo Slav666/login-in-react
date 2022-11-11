@@ -5,14 +5,24 @@ export default function useUpdatePost({ userId }) {
   const queryClient = useQueryClient();
   return useMutation(
     post => {
-      console.log('Post from uSe update post', post);
-      console.log('USER ID FROM update hook', userId);
-      // const returnedTarget = Object.assign(post, userId);
       const body = { ...post, userId };
-      console.log('BODY FROM USE UPDATE POST!!!!!!', body);
-      return axios.patch(`/api/posts/${post.id}`, body).then(res => {
-        // console.log('Two objects merged', returnedTarget);
+      return axios.patch(`/api/posts/${post?.id}`, body).then(res => {
         res.data;
+        //onMutate code is used for optimistic update
+        // {
+        //   onMutate: values => {
+        //     const previousPost = queryClient.getQueryData([
+        //       'post',
+        //       values.id,
+        //     ]);
+        //     queryClient.setQueryData(['post', values.id], old => ({
+        //       ...old,
+        //       ...values,
+        //     }));
+        //     return () =>
+        //       queryClient.setQueryData(['post', values.id], previousPost);
+        //   },
+        // };
       });
     },
     {

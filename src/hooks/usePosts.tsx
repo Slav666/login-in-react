@@ -1,5 +1,4 @@
 import { useQuery } from '@tanstack/react-query';
-import { response } from 'msw';
 import axios from 'axios';
 import { z } from 'zod';
 
@@ -17,7 +16,6 @@ export type Blog = z.infer<typeof BlogData>;
 export default function usePosts() {
   return useQuery(['posts'], () =>
     axios.get<any>('/api/posts/').then(res => {
-      // console.log('RES DATA FROM USE POST', res.data);
       //Source: www.sandromaglione.com/techblog/zod-and-newtype-ts-full-type-safety-with-typescript
       const dataToValidate = Blogs.safeParse(res.data);
       if (dataToValidate.success) {
