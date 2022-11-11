@@ -3,13 +3,8 @@ import usePosts from './usePosts';
 import { describe, it, expect } from 'vitest';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import React from 'react';
-import nock from 'nock';
-// import { posts } from '../mocks/fixtures/blog';
 import { server } from '../mocks/server';
 import { rest } from 'msw';
-
-import { act } from '@testing-library/react';
-import { posts } from '~/mocks/fixtures/blog';
 
 const queryClient = new QueryClient();
 const wrapper = ({ children }) => (
@@ -60,8 +55,6 @@ describe('usePost', () => {
     await waitFor(() => {
       return result.current.isSuccess;
     });
-    console.log('current data', result.current.data);
-    console.log('Posts', posts);
     expect(result.current.data).toStrictEqual(expectedActions);
   });
 });

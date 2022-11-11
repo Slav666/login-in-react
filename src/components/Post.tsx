@@ -2,7 +2,6 @@ import React, { FC } from 'react';
 import { Link } from 'react-router-dom';
 import { IPost, IUser } from '../utility/interface';
 import useDeletePost from '~/hooks/useDeletePost';
-import { z } from 'zod';
 
 interface Props {
   post: IPost;
@@ -10,7 +9,7 @@ interface Props {
 }
 
 const Post: FC = ({ post }: Props) => {
-  const user: IUser = { userId: 2, name: 'Mark', surname: 'Small' };
+  const user: IUser = { userId: 1, name: 'Mark', surname: 'Small' };
   const { mutateAsync, status, isLoading } = useDeletePost();
 
   const removePost = async (): Promise<void> => {
@@ -27,11 +26,14 @@ const Post: FC = ({ post }: Props) => {
   return (
     <li
       key={post.id}
-      className="m-2 flex max-w-4xl cursor-pointer flex-col rounded border-2 border-gray-900 bg-gray-500 p-2"
+      className="m-2 flex cursor-pointer flex-col rounded border-2 border-gray-900 bg-gray-500 p-8 md:container md:mx-auto"
     >
-      <Link to={`/posts/${post.id}`}>{post.title}</Link>
-      <p>{post.post}</p>
-      <div className="flex justify-center">
+      <p className="">Post Created by user: {post.ownerId}</p>
+      <Link to={`/posts/${post.id}`} className="text-xl font-bold text-black">
+        {post.title}
+      </Link>
+      <p className="">{post.post}</p>
+      <div className="m-8 flex justify-center">
         <button
           className="m-2 rounded-md bg-red-500 p-2 hover:bg-red-800"
           onClick={removePost}

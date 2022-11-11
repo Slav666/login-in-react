@@ -2,12 +2,22 @@ import React, { useEffect, FC } from 'react';
 import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
-// import { BlogData } from '~/utility/interface';
 
 export const FormSchema = z.object({
   title: z.string().min(5),
   post: z.string().min(20),
+  id: z.number(),
+  creationDate: z.string(),
+  ownerId: z.number(),
 });
+
+// export const FormSchema2 = z.object({
+//   title: z.string().min(5),
+//   post: z.string().min(20),
+//   id: z.number(),
+//   creationDate: z.string(),
+//   ownerId: z.number(),
+// });
 
 export type FormSchemaType = z.infer<typeof FormSchema>;
 
@@ -16,7 +26,6 @@ const PostForm: FC = ({ defaultValues, onFormSubmit }) => {
     register,
     handleSubmit,
     reset,
-    watch,
     formState: { errors },
   } = useForm<FormSchemaType>({
     defaultValues,
@@ -24,7 +33,7 @@ const PostForm: FC = ({ defaultValues, onFormSubmit }) => {
   });
 
   const onSubmit = handleSubmit(data => {
-    console.log(data);
+    console.log('Data from post form component', data);
     return onFormSubmit(data);
   });
 
@@ -42,7 +51,7 @@ const PostForm: FC = ({ defaultValues, onFormSubmit }) => {
       <input
         {...register('title')}
         autoFocus
-        className="m-3 border-2 border-gray-500 bg-pink-500 p-2"
+        className="m-3 border-2 border-gray-500 bg-gray-500 p-2"
         defaultValue={defaultValues?.title}
         id="title"
         name="title"
@@ -69,7 +78,6 @@ const PostForm: FC = ({ defaultValues, onFormSubmit }) => {
         <p className="m1 text-sm text-red-600">{errors.post.message}</p>
       )}
       <div className="flex justify-center p-2">
-        {/* <pre>{JSON.stringify(watch(), null, 2)}</pre> */}
         <button
           aria-label="Add Item"
           className="m-2 rounded-md bg-sky-500 p-2 hover:bg-sky-800"
