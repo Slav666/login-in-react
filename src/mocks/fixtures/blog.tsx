@@ -34,7 +34,11 @@ const getPosts = () => posts;
 const addPost = postData => {
   const id = getPosts().length + 1;
   const ownerId = getPosts().length + 1;
-  const creationDate = new Date();
+  const date = new Date();
+  const year = date.getFullYear();
+  const month = date.getMonth() + 1;
+  const day = date.getDate();
+  const creationDate = [year, month, day].join('-');
   console.log(ownerId);
   const newPost = {
     ...postData,

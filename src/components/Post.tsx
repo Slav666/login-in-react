@@ -26,14 +26,16 @@ const Post: FC = ({ post }: Props) => {
   return (
     <li
       key={post.id}
-      className="m-2 flex cursor-pointer flex-col rounded border-2 border-gray-900 bg-gray-500 p-8 md:container md:mx-auto"
+      className="m-4 cursor-pointer rounded-3xl border-2 border-gray-700 bg-gray-500 p-4 md:container md:mx-auto"
     >
+      {/* <div className="flex w-12 flex-col md:container md:mx-auto"> */}
       <p className="">Post Created by user: {post.ownerId}</p>
       <Link to={`/posts/${post.id}`} className="text-xl font-bold text-black">
         {post.title}
       </Link>
-      <p className="">{post.post}</p>
-      <div className="m-8 flex justify-center">
+      <p className="">{post.post.slice(0, 200).concat('...')}</p>
+      {/* </div> */}
+      <div className="m-2 flex justify-center">
         <button
           className="m-2 rounded-md bg-red-500 p-2 hover:bg-red-800"
           onClick={removePost}
