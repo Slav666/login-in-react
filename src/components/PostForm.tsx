@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 
-export const FormSchema = z.object({
+export const FormSchemaUpdatePost = z.object({
   title: z.string().min(5),
   post: z.string().min(20),
   id: z.number(),
@@ -11,15 +11,12 @@ export const FormSchema = z.object({
   ownerId: z.number(),
 });
 
-// export const FormSchema2 = z.object({
-//   title: z.string().min(5),
-//   post: z.string().min(20),
-//   id: z.number(),
-//   creationDate: z.string(),
-//   ownerId: z.number(),
-// });
+export const FormSchemaCreatePost = z.object({
+  title: z.string().min(5),
+  post: z.string().min(20),
+});
 
-export type FormSchemaType = z.infer<typeof FormSchema>;
+export type FormSchemaType = z.infer<typeof FormSchemaUpdatePost>;
 
 const PostForm: FC = ({ defaultValues, onFormSubmit }) => {
   const {
@@ -29,7 +26,9 @@ const PostForm: FC = ({ defaultValues, onFormSubmit }) => {
     formState: { errors },
   } = useForm<FormSchemaType>({
     defaultValues,
-    resolver: zodResolver(FormSchema),
+    resolver: zodResolver(
+      defaultValues ? FormSchemaUpdatePost : FormSchemaCreatePost,
+    ),
   });
 
   const onSubmit = handleSubmit(data => {
@@ -59,7 +58,7 @@ const PostForm: FC = ({ defaultValues, onFormSubmit }) => {
       />
 
       {errors.title && (
-        <p className="m1 text-sm text-red-600">{errors.title.message[0]}</p>
+        <p className="m1 text-sm text-red-600">{errors.title.message}</p>
       )}
 
       <label className="m-3" htmlFor="post">

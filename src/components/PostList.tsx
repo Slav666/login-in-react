@@ -15,7 +15,7 @@ const PostList: FC = () => {
   }
   return (
     <>
-      <ul className="m-4 bg-red-700 p-4 py-2 md:container md:mx-auto">
+      <ul className="container m-4 mx-auto max-w-4xl p-8">
         {data.map((post: IPost) => (
           <Post key={post.id} post={post} />
         ))}
