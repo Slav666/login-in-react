@@ -3,7 +3,17 @@ import Post from './Post';
 import usePosts from '~/hooks/usePosts';
 import { IPost } from '../utility/interface';
 
-const PostList: FC = () => {
+interface Data {
+  data: {
+    title: string;
+    post: string;
+    id: number;
+    ownerId: number;
+    creationDate: number;
+  }[];
+}
+
+const PostList: FC<Data> = () => {
   const { data, status } = usePosts();
 
   if (status === 'loading') {
@@ -16,7 +26,7 @@ const PostList: FC = () => {
   return (
     <>
       <ul className="container m-4 mx-auto max-w-4xl p-8">
-        {data.map((post: IPost) => (
+        {data.map(post => (
           <Post key={post.id} post={post} />
         ))}
       </ul>
