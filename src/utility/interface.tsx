@@ -2,7 +2,7 @@ export interface IPost {
   userId(UserId: number);
   id: number;
   ownerId: number;
-  creationDate: string;
+  // creationDate: string;
   title: string;
   post: string;
 }

@@ -17,13 +17,6 @@ export default function useCreatePost() {
   return useMutation(
     values =>
       axios.post('/api/posts/', values).then(res => {
-        console.log('Values from use create post', values);
-        // const dataToValidate = Blogs.safeParse(res.data);
-        // if (dataToValidate.success) {
-        //   const validData = dataToValidate.data;
-        //   return validData;
-        // }
-        console.log('data from create post', res.data);
         return res.data;
       }),
     {

@@ -32,7 +32,7 @@ export let posts = [
 const getPosts = () => posts;
 
 const addPost = postData => {
-  const id = getPosts().length + 1;
+  const id = Math.floor(Math.random() * 10000);
   const ownerId = getPosts().length + 1;
   const date = new Date();
   const year = date.getFullYear();

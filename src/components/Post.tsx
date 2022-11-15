@@ -12,7 +12,7 @@ const Post: FC = ({ post }: Props) => {
   const user: IUser = { userId: 1, name: 'Mark', surname: 'Small' };
   const { mutateAsync, status, isLoading } = useDeletePost();
 
-  const removePost = async (): Promise<void> => {
+  const removePost = async () => {
     await mutateAsync({ postId: post.id, userId: user.userId });
   };
 
@@ -28,17 +28,18 @@ const Post: FC = ({ post }: Props) => {
       key={post.id}
       className="m-4 cursor-pointer rounded-3xl border-2 border-gray-700 bg-gray-500 p-4 md:container md:mx-auto"
     >
-      {/* <div className="flex w-12 flex-col md:container md:mx-auto"> */}
       <p className="">Post Created by user: {post.ownerId}</p>
       <Link to={`/posts/${post.id}`} className="text-xl font-bold text-black">
         {post.title}
+        <p className="text-sm text-white">
+          {post.post.slice(0, 200).concat('...')}
+        </p>
       </Link>
-      <p className="">{post.post.slice(0, 200).concat('...')}</p>
-      {/* </div> */}
       <div className="m-2 flex justify-center">
         <button
-          className="m-2 rounded-md bg-red-500 p-2 hover:bg-red-800"
+          className="m-2 rounded-md bg-red-500 p-2 hover:bg-red-800 disabled:bg-blue-900"
           onClick={removePost}
+          disabled={post.ownerId !== user.userId}
         >
           Delete
         </button>

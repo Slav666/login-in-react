@@ -12,9 +12,10 @@ const App: FC = (): ReactElement => {
   return (
     <div className="flex min-h-screen flex-col">
       <Header />
+
       <main className="grow">
         <Router>
-          <nav>
+          <nav className="m-2 flex justify-center">
             <Link
               className="m-2 rounded-md bg-sky-500 p-2 hover:bg-sky-800"
               to="/"
@@ -22,7 +23,7 @@ const App: FC = (): ReactElement => {
               Home
             </Link>
             <Link
-              className="rounded-md bg-sky-500 p-2 hover:bg-sky-800"
+              className="m-2 rounded-md bg-sky-500 p-2 hover:bg-sky-800"
               to="/createPost"
             >
               Create New Post
