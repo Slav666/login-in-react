@@ -1,6 +1,7 @@
-import blogHandlers from './blog';
+// import blogHandlers from './blog';
 import appHandlers from './app';
+import { loginHandlers } from './login';
 
-const handlers = [...blogHandlers, ...appHandlers];
+const handlers = [...appHandlers, ...loginHandlers];
 
 export default handlers;
