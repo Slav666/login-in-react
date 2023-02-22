@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import './login-form.css';
 import Card from '../Card/card';
+import axios from 'axios';
 
 const LoginForm = ({ setIsLoggedIn }) => {
+  const [query, setQuery] = useState();
   const [data, setData] = useState();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -10,6 +12,15 @@ const LoginForm = ({ setIsLoggedIn }) => {
 
   //This is needed when you want to use react query
   // const { data: users } = useLoginUser();
+  // setQuery = {
+  //   username: username,
+  //   password: password,
+  // };
+
+  const userLoginValue = {
+    username: username,
+    password: password,
+  };
 
   const errors = {
     username: 'Invalid username',
@@ -19,21 +30,32 @@ const LoginForm = ({ setIsLoggedIn }) => {
   };
 
   useEffect(() => {
-    // fetch data
-    const dataFetch = async () => {
-      const data = await (await fetch('/api/login/')).json();
-
-      // set state when the data received
-      setData(data);
-      console.log('Data', data);
-    };
-
-    dataFetch();
-  }, []);
+    function getFetchUrl() {
+      return '/api/login/' + query;
+    }
+    async function fetchData() {
+      const result = await axios.post(getFetchUrl());
+      setData(result.data);
+    }
+    fetchData();
+  }, [query]);
 
   const handleSubmit = e => {
     // Prevent page from reloading
     e.preventDefault();
+    // submitHandlerTest();
+    console.log('user login value', userLoginValue);
+    // getAuthUser();
+    // axios
+    //   .post('/api/login/', userLoginValue)
+    //   .then(response => {
+    //     console.log('response data', response.data);
+    //     setData(response.data);
+    //   })
+    //   .catch(error => {
+    //     // setErrorMessages(error);
+    //     console.log(error);
+    //   });
 
     if (!username) {
       // Username input is empty
@@ -46,11 +68,13 @@ const LoginForm = ({ setIsLoggedIn }) => {
       setErrorMessages({ name: 'noPassword', message: errors.noPassword });
       return;
     }
-
+    const currentUser = data;
+    console.log('current user', currentUser);
     // Search for user credentials
-    const currentUser = data?.find(
-      user => user.username === username && user.password === password,
-    );
+    // const currentUser = response
+    // const currentUser = ?.find(
+    //   user => user.username === username && user.password === password,
+    // );
     // const currentUser = data;
     // console.log('current user', currentUser);
     if (currentUser) {
