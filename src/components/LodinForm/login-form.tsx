@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import './login-form.css';
 import Card from '../Card/card';
 import axios from 'axios';
 
 const LoginForm = ({ setIsLoggedIn }) => {
-  const [query, setQuery] = useState();
+  const [query, setQuery] = useState('react');
   const [data, setData] = useState();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -22,6 +22,8 @@ const LoginForm = ({ setIsLoggedIn }) => {
     password: password,
   };
 
+  // const test = useMemo(() => userLoginValue(username, password));
+
   const errors = {
     username: 'Invalid username',
     password: 'Invalid password',
@@ -30,32 +32,27 @@ const LoginForm = ({ setIsLoggedIn }) => {
   };
 
   useEffect(() => {
-    function getFetchUrl() {
-      return '/api/login/' + query;
-    }
     async function fetchData() {
-      const result = await axios.post(getFetchUrl());
-      setData(result.data);
+      await axios.post('/api/login/', userLoginValue).then(response => {
+        console.log('response data', response.data);
+        setData(response.data);
+      });
     }
     fetchData();
-  }, [query]);
+  }, [userLoginValue]);
 
-  const handleSubmit = e => {
-    // Prevent page from reloading
+  const handleInputUserName = e => {
+    setUsername(e.target.value);
+  };
+
+  const handleInputPassword = e => {
+    setPassword(e.target.value);
+  };
+
+  async function handleSubmit(e) {
     e.preventDefault();
-    // submitHandlerTest();
     console.log('user login value', userLoginValue);
-    // getAuthUser();
-    // axios
-    //   .post('/api/login/', userLoginValue)
-    //   .then(response => {
-    //     console.log('response data', response.data);
-    //     setData(response.data);
-    //   })
-    //   .catch(error => {
-    //     // setErrorMessages(error);
-    //     console.log(error);
-    //   });
+    // await fetchData();
 
     if (!username) {
       // Username input is empty
@@ -68,29 +65,26 @@ const LoginForm = ({ setIsLoggedIn }) => {
       setErrorMessages({ name: 'noPassword', message: errors.noPassword });
       return;
     }
-    const currentUser = data;
-    console.log('current user', currentUser);
-    // Search for user credentials
-    // const currentUser = response
-    // const currentUser = ?.find(
-    //   user => user.username === username && user.password === password,
-    // );
     // const currentUser = data;
-    // console.log('current user', currentUser);
-    if (currentUser) {
-      if (currentUser.password !== password) {
-        // Wrong password
-        setErrorMessages({ name: 'password', message: errors.password });
-      } else {
-        // Correct password, log in user
-        setErrorMessages({});
-        setIsLoggedIn(true);
-      }
-    } else {
-      // Username doens't exist in the database
-      setErrorMessages({ name: 'username', message: errors.username });
+    console.log('Data', data);
+    if (data) {
+      setIsLoggedIn(true);
     }
-  };
+
+    // if (data) {
+    //   if (data?.password !== password && data?.username !== username) {
+    //     // Wrong password
+    //     setErrorMessages({ name: 'password', message: errors.password });
+    //   } else {
+    //     // Correct password, log in user
+    //     setErrorMessages({});
+    //     setIsLoggedIn(true);
+    //   }
+    // } else {
+    //   // Username doens't exist in the database
+    //   setErrorMessages({ name: 'username', message: errors.username });
+    // }
+  }
 
   // Render error messages
   const renderErrorMsg = name =>
@@ -110,20 +104,24 @@ const LoginForm = ({ setIsLoggedIn }) => {
             type="text"
             placeholder="Username"
             value={username}
-            onChange={e => setUsername(e.target.value)}
+            onChange={handleInputUserName}
           />
           {renderErrorMsg('username')}
           {renderErrorMsg('noUsername')}
+
           <input
             type="password"
             placeholder="Password"
             value={password}
-            onChange={e => setPassword(e.target.value)}
+            onChange={handleInputPassword}
           />
           {renderErrorMsg('password')}
           {renderErrorMsg('noPassword')}
         </div>
         <input type="submit" value="Log In" className="login_button" />
+        {/* <button onClick={handleSubmit} className="login_button" value="Log In">
+        Submit
+      </button> */}
       </form>
       <div className="link_container">
         <a href="" className="small">

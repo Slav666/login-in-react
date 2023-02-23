@@ -85,6 +85,7 @@
 
   .login_button {
     width: 100%;
+    background-color: aqua;
   }
 
   .error_msg {
