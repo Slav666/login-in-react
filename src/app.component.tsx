@@ -2,7 +2,7 @@
 import React, { FC, ReactElement } from 'react';
 import { useState } from 'react';
 import LoggedIn from '../src/components/LoggedIn/loggedIn';
-import LoginForm from '../src/components/LodinForm/login-form';
+import LoginFormTest from '../src/components/LodinForm/login-form-test';
 
 const App: FC = (): ReactElement => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
@@ -11,7 +11,7 @@ const App: FC = (): ReactElement => {
       {isLoggedIn ? (
         <LoggedIn setIsLoggedIn={setIsLoggedIn} />
       ) : (
-        <LoginForm setIsLoggedIn={setIsLoggedIn} />
+        <LoginFormTest setIsLoggedIn={setIsLoggedIn} />
       )}
     </>
   );
