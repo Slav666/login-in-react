@@ -1,11 +1,15 @@
 import axios from 'axios';
-import { useQuery } from '@tanstack/react-query';
+import { useQueryClient, useMutation } from '@tanstack/react-query';
 
 export default function useLoginUser() {
-  const query = useQuery(['loginUsers'], () => {
-    return axios.get(`/api/login/`).then(res => {
-      return res.data;
-    });
-  });
-  return query;
+  const queryClient = useQueryClient();
+  return useMutation(
+    userLoginValues =>
+      axios.post('/api/login/', userLoginValues).then(res => {
+        return res.data;
+      }),
+    {
+      onSuccess: () => queryClient.invalidateQueries(['login']),
+    },
+  );
 }
